@@ -1,0 +1,29 @@
+services:
+
+  nifi:
+    hostname: nifi
+    container_name: nifi
+    image: apache/nifi:latest
+    ports:
+      - "8443:8443"
+    volumes:
+      - "nifi_data:/nifi"
+    environment:
+      - SINGLE_USER_CREDENTIALS_USERNAME=admin
+      - SINGLE_USER_CREDENTIALS_PASSWORD=tEstP455w0rdW1thLeNght31vjLjfEx
+    networks:
+      poc-net:
+        ipv4_address: 10.40.0.10
+
+volumes:
+  nifi_data:
+    name: nifi_data
+    driver: local
+
+networks:
+  poc-net:
+    name: poc-net
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.40.0.0/24
